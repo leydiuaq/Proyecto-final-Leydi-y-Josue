@@ -7,7 +7,7 @@ fasta_limpio <- lapply(fasta_tarea2, function(seq) {
   seq_str <- gsub("[^ACGT]", "A", seq_str)  # cualquier cosa distinta de A,C,G,T se vuelve A
   DNAString(seq_str)
 })
-
+LAAAAAAAA
 
 fasta_limpio <- DNAStringSet(fasta_limpio)
 #esta función le indica a R que busque el patrón que "GATTACA dentro de la secuencia
