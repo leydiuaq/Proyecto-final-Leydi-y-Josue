@@ -42,26 +42,36 @@ lacteos_df <- data.frame(
 
 dieta <- function(){
   #PREGUNTAR DATOS AL USUARIO
-  edad<- readline(prompt = "Bienvenido al creador de dietas, usted es mayor de 18 años? (Responda si o no en minusculas)")
+  edad<- readline(prompt = "Bienvenido al creador de dietas, Qué edad tiene?")
+  edad<-as.numeric(edad)
   sexo<- readline(prompt = "¿Cual es su sexo? (Responda en minusculas: femenino o masculino)")
   peso<- as.numeric(readline(prompt = "Escriba su peso en kilogramos. (Ejemplo: 89)"))
   altura<- as.numeric(readline(prompt = "Escriba su altura en centimetros. (Ejemplo: 156)"))
-  actividad<- readline(prompt = "¿Considera que tiene un estilo de vida activo o sedentario?. (Favor de responder en minusculas. Ejemplo: sedentario)")
-  alergias<- readline(prompt = "Tiene alergia a alguno de estos grupos alimentarios? (lacteos, gluten, frutos secos). 
+  actividad<- readline(prompt = "¿Considera que tan activo eres?. (Favor de responder en minusculas y 
+                       dentro de estas cinco opciones: poco o ningún ejercicio, ejercicio ligero (1-3 días), ejercicio moderado (3-5 días), 
+                       ejercicio fuerte (6-7 días), ejercicio muy fuerte (2 veces por dia)")
+alergias<- readline(prompt = "Tiene alergia a alguno de estos grupos alimentarios? (lacteos, gluten, frutos secos). 
                       Si usted tiene alergia a alguno de estos grupos, coloquelo en minusculas (gluten) de lo contrario, coloque (ninguna)")
   
   #CALCULAR LAS CALORIAS QUE DEBE COMER
-  #busque en una pagina "calculador de calorias del gobierno de Mexico y me dio las calorias para mi asi que 
-  #quedo en activo *35 y sedentario *22.2 
-  
-  if(vida == "activo"){
-    calorias<- peso * 35
-  }else if (vida == "sedentario"){
-    calorias <- peso * 22.2
-  }else{
-    print("Los datos proporcionados no son validos para el conteo de calorias, favor de revisar si los datos fueron escritos de manera correcta")
-  }
-  
+  ##hacemos la formula para sacar las calorias que debes de consumir según el peso, la altura, la edad y la actividad fisica
+  #los valores obtenido de esta fórmula se le denomina "tasa metabolica basal"
+  #Las formulas fueron sacadas de la plataforma del Estado peruano
+  if(sexo=="masculino" & actividad== "poco o ningún ejercicio"){hombres_TMB<- (10*peso)+(6.25*altura)-(5*edad)+5; calorias<- hombres_TMB*1.2
+  }else if(sexo== "masculino" & actividad== "ejercicio ligero"){hombres_TMB<- (10*peso)+(6.25*altura)-(5*edad)+5; calorias<- hombres_TMB*1.375
+  }else if(sexo=="masculino" & actividad== "ejercicio moderado"){hombres_TMB<- (10*peso)+(6.25*altura)-(5*edad)+5; calorias<- hombres_TMB*1.55
+  }else if(sexo=="masculino" & actividad== "ejercicio fuerte"){hombres_TMB<- (10*peso)+(6.25*altura)-(5*edad)+5; calorias<- hombres_TMB*1.725
+  }else if(sexo=="masculino" & actividad== "ejercicio muy fuerte"){hombres_TMB<- (10*peso)+(6.25*altura)-(5*edad)+5; calorias<- hombres_TMB*1.9
+  }else if(sexo=="femenino" & actividad== "poco o ningún ejercicio"){mujeres_TMB<- (10*peso)+(6.25*altura)-(5*edad)-161; calorias<-mujeres_TMB*1.2 
+  }else if(sexo=="femenino" & actividad== "ejercicio ligero"){mujeres_TMB<- (10*peso)+(6.25*altura)-(5*edad)-161; calorias<-mujeres_TMB*1.375
+  }else if(sexo=="femenino" & actividad== "ejercicio moderado"){mujeres_TMB<- (10*peso)+(6.25*altura)-(5*edad)-161; calorias<-mujeres_TMB*1.55
+  }else if(sexo=="femenino" & actividad== "ejercicio fuerte"){mujeres_TMB<- (10*peso)+(6.25*altura)-(5*edad)-161; calorias<-mujeres_TMB*1.725
+  }else if(sexo=="femenino" & actividad== "ejercicio muy fuerte"){mujeres_TMB<- (10*peso)+(6.25*altura)-(5*edad)-161; calorias<-mujeres_TMB*1.9
+  }else{print("corriga su respuesta")
+    }
+  ###Después de eso hay que sacar las proporciones de carbohidratos, proteinas y lipidos que debe tener su dieta
+
+
   
 } 
 
