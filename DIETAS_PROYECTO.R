@@ -129,55 +129,90 @@ lipidosalergias <- lipidos_df
 lacteosalergias <- lacteos_df
 
 ###Genere unas condicionales para que filtre los alimentos si es que la respuesta en
-#alergia1/2 sea diferente a ninguna. Asi es facil generar el menu mas adelante y filtra
+###alergia1 es que si tiene alguna
 
-if(alergia1 != "ninguno"){
-  proteinasalergias <- subset(proteinasalergias, alergenos != alergia1)
-  carbohidratosalergias<- subset(carbohidratosalergias, alergenos != alergia1)
-  lipidosalergias <- subset(lipidosalergias, alergenos != alergia1)
-  lacteosalergias <- subset(lacteosalergias, alergenos != alergia1)
+if(alergia1 == "ninguno"){
+  proteinasalergias <- subset(proteinasalergias, alergenos == alergia1)
+  carbohidratosalergias<- subset(carbohidratosalergias, alergenos == alergia1)
+  lipidosalergias <- subset(lipidosalergias, alergenos == alergia1)
+  lacteosalergias <- subset(lacteosalergias, alergenos == alergia1)
+} else if(alergia1=="gluten"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "gluten")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "gluten")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "gluten")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "gluten")
+} else if(alergia1 == "lacteos"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "lacteos")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "lacteos")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "lacteos")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "lacteos")
+} else if(alergia1 == "frutos_secos"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "frutos_secos")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "frutos_secos")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "frutos_secos")
 }
 
-if(alergia2 != "ninguno"){
-  proteinasalergias <- subset(proteinasalergias, alergenos != alergia2)
-  carbohidratosalergias<- subset(carbohidratosalergias, alergenos != alergia2)
-  lipidosalergias <- subset(lipidosalergias, alergenos != alergia2)
-  lacteosalergias <- subset(lacteosalergias, alergenos != alergia2)
+if(alergia2 == "ninguno"){
+  proteinasalergias <- subset(proteinasalergias, alergenos == alergia2)
+  carbohidratosalergias<- subset(carbohidratosalergias, alergenos == alergia2)
+  lipidosalergias <- subset(lipidosalergias, alergenos == alergia2)
+  lacteosalergias <- subset(lacteosalergias, alergenos == alergia2)
+}else if(alergia1=="gluten"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "gluten")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "gluten")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "gluten")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "gluten")
+} else if(alergia1 == "lacteos"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "lacteos")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "lacteos")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "lacteos")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "lacteos")
+} else if(alergia1 == "frutos_secos"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "frutos_secos")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "frutos_secos")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "frutos_secos")
 }
 
-###Elegir al azar 1 solo grupo de alimentos... A excepcion de las verduras, de ese elige 2 
-proteina<- proteinasalergias[sample(nrow(proteinasalergias), 1), ]
-carbohidrato<- carbohidratosalergias[sample(nrow(carbohidratosalergias), 1), ]
-lipido<- lipidosalergias[sample(nrow(lipidosalergias), 1), ]
+###Elegir al azar 2 solo grupo de alimentos... A excepcion de la fruta y los lacteos, ahi se escoge 1
+proteina<- proteinasalergias[sample(nrow(proteinasalergias), 2), ]
+carbohidrato<- carbohidratosalergias[sample(nrow(carbohidratosalergias), 2), ]
+lipido<- lipidosalergias[sample(nrow(lipidosalergias), 2), ]
 lacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
 verdura<- verduras_df[sample(nrow(verduras_df), 2), ]
 fruta<- frutas_df[sample(nrow(frutas_df), 1), ]
-
+proteina
 ###Acomodar las porciones (gr) segun el requerimiento
-porcion_proteina<- round((cantidad_proteínas/ proteina$proteinas_en_100g) * 100)
-porcion_carbohidrato<- round((cantidad_carbohidratos/ carbohidrato$carbohidratos_en_100g) * 100)
-porcion_lipido<- round((cantidad_lípidos/ lipido$grasas_por_100g) * 100)
+porcion_proteina1<- round(((cantidad_proteínas/2)/ proteina$proteinas_en_100g[1]) * 100)
+porcion_proteina2<-round(((cantidad_proteínas/2)/proteina$proteinas_en_100g[2])*100)
+porcion_carbohidrato1<- round(((cantidad_carbohidratos/2)/ carbohidrato$carbohidratos_en_100g[1]) * 100)
+porcion_carbohidrato2<- round(((cantidad_carbohidratos/2)/ carbohidrato$carbohidratos_en_100g[2]) * 100)
+porcion_lipido1<- round(((cantidad_lípidos/2)/lipido$grasas_por_100g[1]) * 100)
+porcion_lipido2<- round(((cantidad_lípidos/2)/lipido$grasas_por_100g[2]) * 100)
+porcion_carbohidrato1
+### Para sacar las porciones solo hice una regla de 3, si 100gr de este alimento
+#tienen tantos gr de proteina, cuantos gramos necesito para cumplir tal requerimiento de proteinas en mi dieta. 
 
 ###Imprimir la dieta. Estuve intentando como mandar una "impresion" como tipo grafica
 #y solo hice una grafica sin datos... No se si haya otra manera, hasta ahorita no he 
 #encontrado nada. 
 
-plot(0:30, type = "n", xlab = "", ylab = "", axes = F)
-     ### Para sacar las porciones solo hice una regla de 3, si 100gr de este alimento
-#tienen tantos gr de proteina, cuantos gramos necesito para cumplir tal. 
-text(10,27, paste("-----CANTIDADES REQUERIDAS-----"))
-text(10,25, paste("Calorias requeridas:", round(calorias_ajustado),"kcal"))
-text(10,23, paste("Proteina requerida:", porcion_proteina, "g"))
-text(10,21, paste("Carbohidratos requeridos:", porcion_carbohidrato, "g"))
-text(10,19, paste("Lipidos requeridos:", porcion_lipido, "g"))
-text(10,17, paste("Porcion de lacteos: 100g/ml"))
-text(10,15, paste("Porcion de frutas y verduras: 100g"))
-text(10,10, paste("-----MENÚ RECOMENDADO-----"))
-text(10,8, paste(porcion_proteina, "g de", proteina$alimento, "acompañado de"))
-text(10,6, paste(porcion_carbohidrato, "g de", carbohidrato$alimento, "y"))
-text(10,4, paste(porcion_lipido, "g de", lipido$alimento, "agregue tambien 100g/ml de"))
-text(10,2, paste(lacteo$alimento, ",", "100 gr de", fruta$alimento, "y 100g de c/u, de"))
-text(10,0, paste(verdura$alimento, "Recuerde que esta dieta debe complementarse con al menos un poco de actividad fisica"))
+plot(0:200, type = "n", xlab = "", ylab = "", axes = F)
+    
+text(50,200, paste("-----CANTIDADES REQUERIDAS-----"))
+text(50,180, paste("Calorias requeridas:", round(calorias_ajustado),"kcal"))
+text(50,80, paste("Proteina requerida:", cantidad_proteínas, "g"))
+text(50,70, paste("Carbohidratos requeridos:", cantidad_carbohidratos, "g"))
+text(50,60, paste("Lipidos requeridos:", cantidad_lípidos, "g"))
+text(50,50, paste("Porcion de lacteos: 100g/ml"))
+text(50,40, paste("Porcion de frutas y verduras: 100g"))
+text(50,20, paste("-----MENÚ RECOMENDADO-----"))
+text(50,10, paste(porcion_proteina1, "g de", proteina$alimento[1], "acompañado de", porcion_proteina2, "g de", proteina$alimento[2] ))
+text(50,0, paste(porcion_carbohidrato1, "g de", carbohidrato$alimento[1], "y", porcion_carbohidrato2, "g de", carbohidrato$alimento[2]))
+text(50,4, paste(porcion_lipido[1], "g de", lipido$alimento[1], "ademas de", porcion_lipido[2], "g de", lipido$alimento[2]))
+text(50,2, paste("Agregue tambien 100g/ml de", lacteo$alimento, ",", "100 gr de", fruta$alimento, "y 100g de c/u, de"))
+text(50,0, paste(verdura$alimento, "Recuerde que esta dieta debe complementarse con al menos un poco de actividad fisica"))
 }
 
 dieta ()
