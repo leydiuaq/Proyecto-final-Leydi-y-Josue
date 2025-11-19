@@ -10,3 +10,10 @@ Josue que hizo:
 -hice modificaciones al ciclo while
 
 Leydi que hizo
+-genere las preguntas al usuario con las que se trabajan mas adelante, las modificamos conforme vimos los requerimientos
+-hice modificaciones en los acentos y agregue grupos alimenticios y sus proporciones
+-genere en primera instancia los subset para las alergias, que posteriormente josue corrigió y yo volvi a darle los ultimos toques
+-realice las porciones divididas en desayuno, comida y cena (tanto calculos como la impresion con print/cat)
+-inicie el ciclo while generando una respuesta diferente (si/no)
+-genere la salida de pdf configurando el nombre del archivo 
+-realizamos modificaciones y cuestionamientos entre nosotros para mejorar el archivo 
