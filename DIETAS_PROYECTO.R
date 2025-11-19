@@ -57,7 +57,7 @@ verduras_df <- data.frame(
   calorias_en_100g = c(34, 23, 41, 18, 15, 15, 25, 26, 26, 25, 
                         16, 22, 47, 20, 43, 38, 43, 18, 17),
   carbohidratos_en_100g = c(7, 4, 10, 4, 3, 3, 5, 6, 7, 6, 
-                             3, 3, 11, 4, 9, 8.8, 9.6, 3.9),
+                             3, 3, 11, 4, 9, 8.8, 9.6, 3.9, 4.5),
   proteinas_en_100g = c(2.8, 2.9, 0.9, 0.9, 0.7, 1.4, 2.0, 1.0, 1.0, 1.0,
                          0.7, 3.1, 3.3, 2.2, 3.4, 0.7, 1.6, 1, 0.82),
   alergenos = c("ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno",
@@ -70,18 +70,17 @@ verduras_df <- data.frame(
 dieta <- function(){
   #PREGUNTAR DATOS AL USUARIO
 nombre<- readline(prompt = "Bienvenido al creador de dietas, ¿Cuál es su nombre?")
-edad<- as.numeric(readline(prompt = "Mucho gusto, favor de responder todas las preguntas en minusculas y sin acentos. 
-                           Qué edad tiene?"))
+edad<- as.numeric(readline(prompt = "Mucho gusto, favor de responder todas las preguntas en minusculas y sin acentos.Qué edad tiene?"))
 sexo<- readline(prompt = "¿Cual es su sexo? (femenino o masculino)")
 peso<- as.numeric(readline(prompt = "Escriba su peso en kilogramos. (Ejemplo: 89)"))
 altura<- as.numeric(readline(prompt = "Escriba su altura en centimetros. (Ejemplo: 156)"))
-actividad<- readline(prompt = "¿Cual es tu nivel de actividad? 
-Poco o ningun ejercicio
-ejercicio ligero (1-3 días) 
-ejercicio moderado (3-5 días),
-ejercicio fuerte (6-7 días)
+actividad<- readline(prompt = "¿Cual es tu nivel de actividad?\n
+Poco o ningun ejercicio\n
+ejercicio ligero (1-3 días)\n
+ejercicio moderado (3-5 días)\n
+ejercicio fuerte (6-7 días)\n
 ejercicio muy fuerte (2 veces por dia)")
-alergia1<- readline(prompt = "Tiene alergia a alguno de estos grupos alimentarios? 
+alergia1<- readline(prompt = "Tiene alergia a alguno de estos grupos alimentarios?\n
 Opciones: lacteos, gluten, frutos_secos, pescado o ninguno, escriba solo una")
 alergia2<- readline(prompt = "¿Tiene una segunda alergia? : Si no hay otra, escriba (ninguno)")
 cambio_peso<-readline(prompt="Quiere subir, bajar, o mantener su peso? (Ejemplo: subir, bajar, mantener)")
@@ -142,6 +141,11 @@ if(alergia1 == "gluten"){
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "lacteos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "lacteos")
   lacteosalergias <- subset(lacteosalergias, alergenos != "lacteos")
+} else if(alergia1 == "pescado"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "pescado")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "pescado")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "pescado")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "pescado")
 } else if(alergia1 == "frutos_secos"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "frutos_secos")
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
@@ -165,7 +169,12 @@ if(alergia2 == "gluten"){
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "lacteos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "lacteos")
   lacteosalergias <- subset(lacteosalergias, alergenos != "lacteos")
-} else if(alergia2 == "frutos_secos"){
+} else if(alergia2 == "pescado"){
+  proteinasalergias <- subset(proteinasalergias, alergenos != "pescado")
+  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "pescado")
+  lipidosalergias <- subset(lipidosalergias, alergenos != "pescado")
+  lacteosalergias <- subset(lacteosalergias, alergenos != "pescado")
+}else if(alergia2 == "frutos_secos"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "frutos_secos")
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "frutos_secos")
@@ -185,13 +194,13 @@ proteinas_comida<- cantidad_proteinas * 0.40
 proteinas_cena<- cantidad_proteinas * 0.20
 
 ##CARBOHIDRATOS 100%
-carbo_desayuno<- cantidad_carbohidratos *0.20
-carbo_comida<- cantidad_carbohidratos *0.40 
-carbo_cena<- cantidad_carbohidratos *0.40 
+carbo_desayuno<- (cantidad_carbohidratos *0.20)/2
+carbo_comida<- (cantidad_carbohidratos *0.40)/2
+carbo_cena<- (cantidad_carbohidratos *0.40)/2
 
 ##LIPIDOS 100%
-lipidos_comida<-cantidad_lipidos *0.50
-lipidos_cena<- cantidad_lipidos *0.50 
+lipidos_comida<-(cantidad_lipidos *0.50)/2
+lipidos_cena<- (cantidad_lipidos *0.50)/2
 
 pregunta<-"no"
 while(pregunta=="no"){
@@ -200,8 +209,8 @@ while(pregunta=="no"){
 desayunolacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
 desayunofruta<- frutas_df[sample(nrow(frutas_df), 1), ]
 
-porciondesayunoproteina<- round(proteinas_desayuno/desayunolacteo$proteinas_por_100g * 100)
-porciondesayunocarbohidrato<- round(carbo_desayuno/desayunofruta$carbohidratos_por_100g * 100)
+porciondesayunoproteina<- round(proteinas_desayuno/desayunolacteo$proteinas_en_100g * 100)
+porciondesayunocarbohidrato<- round(carbo_desayuno/desayunofruta$carbohidratos_en_100g * 100)
 
 ##COMIDA
 comidaproteina<- proteinasalergias[sample(nrow(proteinasalergias), 1), ]
@@ -211,7 +220,7 @@ comidaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
 
 porcioncomidaproteina<- round(proteinas_comida/comidaproteina$proteinas_en_100g * 100)
 porcioncomidacarbohidrato<- round(carbo_comida/comidacarbohidrato$carbohidratos_en_100g * 100)
-porcioncomidalipido<- round(lipidos_comida/comidalipido$grasas_por_100g * 100)
+porcioncomidalipido<- round(lipidos_comida/comidalipido$grasas_en_100g * 100)
 porcioncomidaverdura<- rep(100, nrow(comidaverdura))
 
 ##CENA
@@ -222,7 +231,7 @@ cenaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
 
 porcioncenaproteina<- round(proteinas_cena/cenaproteina$proteinas_en_100g * 100)
 porcioncenacarbohidrato<-round(carbo_cena/cenacarbohidrato$carbohidratos_en_100g * 100)
-porcioncenalipido<- round(lipidos_cena/cenalipido$grasas_por_100g * 100)
+porcioncenalipido<- round(lipidos_cena/cenalipido$grasas_en_100g * 100)
 porcioncenaverdura<- rep(100, nrow(cenaverdura))
   
 #Dar un "borrador" de la dieta final
@@ -249,7 +258,58 @@ cat(paste(porcioncenaverdura[1], "g de", cenaverdura$alimento[1],
 ###Mandar un pdf al usuario con su dieta si le gustó.
 pregunta<- readline(prompt = "Usted está conforme con este menú? (si/no)")
 
+if(pregunta== "si"){
+  menu_digital<- file.path("~/Dietas/Proyecto/", paste0("dieta_", nombre, ".pdf"))
+  pdf(menu_digital)
+  plot(1, type = "n", xlab = "", ylab = "", axes = F)
+  
+  text(0.1, 0.95, "===REQUERIMIENTOS NUTRICIONALES===", cex =1)
+  text(0.1, 0.86, paste("Nombre:", nombre), cex = 0.8)
+  text(0.1, 0.82, paste("Edad:", edad), cex = 0.8)
+  text(0.1, 0.78, paste("Sexo:", sexo), cex = 0.8)
+  text(0.1, 0.74, paste("Altura:", altura, "cm"), cex= 0.8)
+  text(0.1, 0.70, paste("Peso:", peso, "kg"), cex = 0.8)
+  text(0.1, 0.66, paste("Actividad:", actividad), cex = 0.8)
+  text(0.1, 0.62, paste("Alergia1:", alergia1), cex= 0.8)
+  text(0.1, 0.58, paste("Alergia2:", alergia2), cex= 0.8)
+  text(0.1, 0.54, paste("Meta personal con su peso:", cambio_peso), cex= 0.8)
+  
+  
+  text(0.1, 0.48, paste("Calorias requeridas:", round(calorias_ajustado), "kcal"), cex = 0.8)
+  text(0.1, 0.44, paste("Proteinas requeridas:", round(cantidad_proteinas), "g"), cex = 0.8)
+  text(0.1, 0.40, paste("Carbohidratos requeridos:", round(cantidad_carbohidratos), "g"), cex= 0.8)
+  text(0.1, 0.36, paste("Lipidos requeridos:", round(cantidad_lipidos), "g"), cex= 0.8)
+  
+  
+  text(0.1, 0.30, "=== Menú diario según los requerimientos ===", cex= 1)
+  
 
+  text(0.1, 0.24,paste("Desayuno:",
+                       porciondesayunoproteina, "g de", desayunolacteo$alimento,
+                       "acompañado de", porciondesayunocarbohidrato, "g de", desayunofruta$alimento), cex = 0.8)
+  
+  text(
+    0.1, 0.18,
+    paste("Comida:",
+      porcioncomidaproteina, "g de", comidaproteina$alimento, ",",
+      porcioncomidacarbohidrato, "g de", comidacarbohidrato$alimento, ",",
+      porcioncomidalipido, "g de", comidalipido$alimento, ",",
+      porcioncomidaverdura[1], "g de", comidaverdura$alimento[1],
+      "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2]), cex = 0.8)
+  
+  text(0.1, 0.12,paste("Cena:",
+      porcioncenaproteina, "g de", cenaproteina$alimento, ",",
+      porcioncenacarbohidrato, "g de", cenacarbohidrato$alimento, ",",
+      porcioncenalipido, "g de", cenalipido$alimento, ",",
+      porcioncenaverdura[1], "g de", cenaverdura$alimento[1],
+      "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2]
+    ), cex = 0.8)
+  
+  dev.off()
+  
+  cat("\nPDF generado y almacenado en su dispositivo. Gracias por utilizar creador de dietas :)\n")
+  
+}
 
 }
 
