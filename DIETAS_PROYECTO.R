@@ -193,15 +193,15 @@ carbo_cena<- cantidad_carbohidratos *0.40
 lipidos_comida<-cantidad_lipidos *0.50
 lipidos_cena<- cantidad_lipidos *0.50 
 
-
-while(TRUE){
+pregunta<-"no"
+while(pregunta=="no"){
 ###Elegir al azar 2 solo grupo de alimentos... Dividiendolo por tiempos (desayuno, comida y cena)
 ##DESAYUNO
 desayunolacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
 desayunofruta<- frutas_df[sample(nrow(frutas_df), 1), ]
 
-porciondesayunoproteina<- round(proteinas_desayuno/desayunolacteo$proteinas_en_100g * 100)
-porciondesayunocarbohidrato<- round(carbo_desayuno/desayunofruta$carbohidratos_en_100g * 100)
+porciondesayunoproteina<- round(proteinas_desayuno/desayunolacteo$proteinas_por_100g * 100)
+porciondesayunocarbohidrato<- round(carbo_desayuno/desayunofruta$carbohidratos_por_100g * 100)
 
 ##COMIDA
 comidaproteina<- proteinasalergias[sample(nrow(proteinasalergias), 1), ]
@@ -211,7 +211,7 @@ comidaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
 
 porcioncomidaproteina<- round(proteinas_comida/comidaproteina$proteinas_en_100g * 100)
 porcioncomidacarbohidrato<- round(carbo_comida/comidacarbohidrato$carbohidratos_en_100g * 100)
-porcioncomidalipido<- round(lipidos_comida/comidalipido$grasas_en_100g * 100)
+porcioncomidalipido<- round(lipidos_comida/comidalipido$grasas_por_100g * 100)
 porcioncomidaverdura<- rep(100, nrow(comidaverdura))
 
 ##CENA
@@ -222,28 +222,29 @@ cenaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
 
 porcioncenaproteina<- round(proteinas_cena/cenaproteina$proteinas_en_100g * 100)
 porcioncenacarbohidrato<-round(carbo_cena/cenacarbohidrato$carbohidratos_en_100g * 100)
-porcioncenalipido<- round(lipidos_cena/cenalipido$grasas_en_100g * 100)
+porcioncenalipido<- round(lipidos_cena/cenalipido$grasas_por_100g * 100)
 porcioncenaverdura<- rep(100, nrow(cenaverdura))
   
 #Dar un "borrador" de la dieta final
-cat("Desayuno:")
-cat(paste(porciondesayunoproteina, "g de",desayunolacteo$alimento, "acompañado de", porciondesayunocarbohidrato,
-            "g de", desayunofruta$alimento))
+cat("\n DIETA GENERADA\n\n")
 
+cat("DESAYUNO:\n")
+cat(paste(porciondesayunoproteina, "g de", desayunolacteo$alimento, 
+          "acompañado de", porciondesayunocarbohidrato, "g de", desayunofruta$alimento, "\n\n"))
 
+cat("COMIDA:\n")
+cat(paste(porcioncomidaproteina, "g de", comidaproteina$alimento, 
+          "acompañado de", porcioncomidacarbohidrato, "g de", comidacarbohidrato$alimento, "\n"))
+cat(paste(porcioncomidalipido, "g de", comidalipido$alimento, "\n"))
+cat(paste(porcioncomidaverdura[1], "g de", comidaverdura$alimento[1], 
+          "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2], "\n\n"))
 
-cat("Comida:")
-cat(paste(porcioncomidaproteina, "g de", comidaproteina$alimento, "acompañado de", porcioncomidacarbohidrato,
-            "g de", comidacarbohidrato$alimento, porcioncomidalipido, "g de", comidalipido$alimento, porcioncomidaverdura[1],
-            "g de", comidaverdura$alimento[1], "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2]))
-
-
-
-cat("Cena:")
-cat(paste(porcioncenaproteina, "g de", cenaproteina$alimento, "acompañado de", porcioncenacarbohidrato,
-            "g de", cenacarbohidrato$alimento, porcioncenalipido, "g de", cenalipido$alimento, porcioncenaverdura[1],
-            "g de", cenaverdura$alimento[1], "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2]))
-
+cat("CENA:\n")
+cat(paste(porcioncenaproteina, "g de", cenaproteina$alimento, 
+          "acompañado de", porcioncenacarbohidrato, "g de", cenacarbohidrato$alimento, "\n"))
+cat(paste(porcioncenalipido, "g de", cenalipido$alimento, "\n"))
+cat(paste(porcioncenaverdura[1], "g de", cenaverdura$alimento[1], 
+          "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2], "\n"))
 
 ###Mandar un pdf al usuario con su dieta si le gustó.
 pregunta<- readline(prompt = "Usted está conforme con este menú? (si/no)")
