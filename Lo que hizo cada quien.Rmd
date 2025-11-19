@@ -1,0 +1,12 @@
+Josue que hizo:
+-realizar los data.frames
+-algunas modificaciones en las readlines de actividad y agregar la readline de "cambio de peso"
+-hacer el codigo de calculo de las calorias que se debe comer segun los datos que nos dio el usuario y ajustarlo dependiendo si quiere cambiar de peso o no
+-hice el código para sacar la cantidad de macronutrientes que debe de consumir el usuario (en gramos)
+-complete las condicionantes de las alergias (haciendo que la función discrimine ciertos alimentos dependiendo de la respuesta del usuario)
+-Hice pequeñas modificaciones en el código de la elección al azar de los alimentos
+-en el código donde se calcula la cantidad de gramos que se debe consumir por alimento dependiendo de la cantidad de macronutrientes que requiere la persona, agregue mas objetos para asi el programa te diera al menos dos alimentos como fuentes de proteina, carbohidratos y lipidos
+-finalmente hice modificaciones en el texto que se va a desplegar al final (segun las modificaciones que hice anteriormente)
+-hice modificaciones al ciclo while
+
+Leydi que hizo
