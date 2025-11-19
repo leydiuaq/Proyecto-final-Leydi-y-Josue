@@ -246,7 +246,7 @@ cat(paste(porcioncenaproteina, "g de", cenaproteina$alimento, "acompañado de", 
 
 
 ###Mandar un pdf al usuario con su dieta si le gustó.
-pregunta<- readline(prompt = "Estas conforme con este menú? (si/no)")
+pregunta<- readline(prompt = "Usted está conforme con este menú? (si/no)")
 
 
 
