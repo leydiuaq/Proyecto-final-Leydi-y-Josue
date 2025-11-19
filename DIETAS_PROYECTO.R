@@ -261,49 +261,51 @@ pregunta<- readline(prompt = "Usted está conforme con este menú? (si/no)")
 if(pregunta== "si"){
   menu_digital<- file.path("~/Dietas/Proyecto/", paste0("dieta_", nombre, ".pdf"))
   pdf(menu_digital)
-  plot(1, type = "n", xlab = "", ylab = "", axes = F)
+  plot(c(0,1), c(0,1), type = "n", xlab = "", ylab = "", axes = F)
   
-  text(0.1, 0.95, "===REQUERIMIENTOS NUTRICIONALES===", cex =1)
-  text(0.1, 0.86, paste("Nombre:", nombre), cex = 0.8)
-  text(0.1, 0.82, paste("Edad:", edad), cex = 0.8)
-  text(0.1, 0.78, paste("Sexo:", sexo), cex = 0.8)
-  text(0.1, 0.74, paste("Altura:", altura, "cm"), cex= 0.8)
-  text(0.1, 0.70, paste("Peso:", peso, "kg"), cex = 0.8)
-  text(0.1, 0.66, paste("Actividad:", actividad), cex = 0.8)
-  text(0.1, 0.62, paste("Alergia1:", alergia1), cex= 0.8)
-  text(0.1, 0.58, paste("Alergia2:", alergia2), cex= 0.8)
-  text(0.1, 0.54, paste("Meta personal con su peso:", cambio_peso), cex= 0.8)
-  
-  
-  text(0.1, 0.48, paste("Calorias requeridas:", round(calorias_ajustado), "kcal"), cex = 0.8)
-  text(0.1, 0.44, paste("Proteinas requeridas:", round(cantidad_proteinas), "g"), cex = 0.8)
-  text(0.1, 0.40, paste("Carbohidratos requeridos:", round(cantidad_carbohidratos), "g"), cex= 0.8)
-  text(0.1, 0.36, paste("Lipidos requeridos:", round(cantidad_lipidos), "g"), cex= 0.8)
-  
-  
-  text(0.1, 0.30, "=== Menú diario según los requerimientos ===", cex= 1)
-  
+texto_impreso <- c(
+"=== REQUERIMIENTOS NUTRICIONALES ===",
+paste("Nombre:", nombre),
+paste("Edad:", edad),
+paste("Sexo:", sexo),
+paste("Altura:", altura, "cm"),
+paste("Peso:", peso, "kg"),
+paste("Actividad:", actividad),
+paste("Alergia1:", alergia1),
+paste("Alergia2:", alergia2),
+paste("Meta personal con su peso:", cambio_peso),
 
-  text(0.1, 0.24,paste("Desayuno:",
-                       porciondesayunoproteina, "g de", desayunolacteo$alimento,
-                       "acompañado de", porciondesayunocarbohidrato, "g de", desayunofruta$alimento), cex = 0.8)
-  
-  text(
-    0.1, 0.18,
-    paste("Comida:",
-      porcioncomidaproteina, "g de", comidaproteina$alimento, ",",
-      porcioncomidacarbohidrato, "g de", comidacarbohidrato$alimento, ",",
-      porcioncomidalipido, "g de", comidalipido$alimento, ",",
-      porcioncomidaverdura[1], "g de", comidaverdura$alimento[1],
-      "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2]), cex = 0.8)
-  
-  text(0.1, 0.12,paste("Cena:",
-      porcioncenaproteina, "g de", cenaproteina$alimento, ",",
-      porcioncenacarbohidrato, "g de", cenacarbohidrato$alimento, ",",
-      porcioncenalipido, "g de", cenalipido$alimento, ",",
-      porcioncenaverdura[1], "g de", cenaverdura$alimento[1],
-      "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2]
-    ), cex = 0.8)
+paste("Calorías requeridas:", round(calorias_ajustado), "kcal"),
+paste("Proteínas requeridas:", round(cantidad_proteinas), "g"),
+paste("Carbohidratos requeridos:", round(cantidad_carbohidratos), "g"),
+paste("Lípidos requeridos:", round(cantidad_lipidos), "g"),
+
+"=== Menú diario según los requerimientos ===",
+
+    
+paste("DESAYUNO:"),
+paste(" -", porciondesayunoproteina, "g de", desayunolacteo$alimento),
+paste(" - Acompañado de", porciondesayunocarbohidrato, "g de", desayunofruta$alimento),
+
+    
+paste("COMIDA:"),
+paste(" -", porcioncomidaproteina, "g de", comidaproteina$alimento),
+paste(" -", porcioncomidacarbohidrato, "g de", comidacarbohidrato$alimento),
+paste(" -", porcioncomidalipido, "g de", comidalipido$alimento),
+paste(" -", porcioncomidaverdura[1], "g de", comidaverdura$alimento[1],
+          "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2]),
+
+    
+paste("CENA:"),
+paste(" -", porcioncenaproteina, "g de", cenaproteina$alimento),
+paste(" -", porcioncenacarbohidrato, "g de", cenacarbohidrato$alimento),
+paste(" -", porcioncenalipido, "g de", cenalipido$alimento),
+paste(" -", porcioncenaverdura[1], "g de", cenaverdura$alimento[1],
+          "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2]))
+
+longitud <- length(texto_impreso)
+posiciones <- seq(0.95, 0.95 - 0.03 * (longitud- 1), by = -0.03)
+text(x = 0.50, y = posiciones, labels = texto_impreso, cex = 0.8)
   
   dev.off()
   
