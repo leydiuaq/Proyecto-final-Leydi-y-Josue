@@ -5,34 +5,34 @@
 #d) Podriamos poner un apartado de alergias 
 #e) sexo (vi que las calorias no son iguales para hombres y mujeres)
 
-
 #Primero hacemos varios data.frame que tenga todos los alimentos de un tipo (proteinas, lipidos, carbohidratos) para después hacer 
 #la función que va a recolectar los datos de estos data.frame
 proteinas_df <- data.frame(
   alimento = c("pechuga de pollo", "carne de res", "huevo", "salmon", "tofu", "lomo de cerdo", "pavo", "atun", "filete de tilapia"),
-  calorias_por_100g = c(165, 250, 155, 208, 76, 242, 189, 184, 96),
+  calorias_en_100g = c(165, 250, 155, 208, 76, 242, 189, 184, 96),
   proteinas_en_100g = c(31, 26, 13, 20, 8, 27, 29, 29, 20),
   alergenos = c("ninguno", "ninguno", "ninguno", "pescado", "ninguno", "ninguno", "ninguno", "pescado", "pescado")
 )
 
 carbohidratos_df <- data.frame(
-  alimento = c("arroz", "avena", "pasta integral", "pan", "quinoa cocida", "papa", "camote", "platano"),
-  calorias_por_100g = c(130, 360, 131, 265, 120, 77, 86, 89),
-  carbohidratos_en_100g = c(28, 64, 25, 50, 21, 17, 20, 23),
+  alimento = c("arroz", "avena", "pasta integral", "pan multigrano cero", "quinoa cocida", "papa blanca", "camote", "Tostadas_de_nopal"),
+  calorias_en_100g = c(130, 360, 131, 156, 120, 77, 86, 191),
+  proteinas_en_100g = c(2.66, 16.89, 5.9, 6, 5.01, 1.68, 1.89, 4.5),
+  carbohidratos_en_100g = c(28, 64, 25, 27.7, 21, 17, 20, 38.16),
   alergenos = c("ninguno", "ninguno", "gluten", "gluten", "ninguno", "ninguno", "ninguno", "ninguno")
 )
 
 lipidos_df <- data.frame(
   alimento = c("aguacate", "aceite_oliva", "nueces", "almendras", "crema_cacahuate", "semillas_girasol"),
-  calorias_por_100g = c(160, 884, 654, 576, 588, 584),
-  grasas_por_100g = c(15, 100, 65, 50, 50, 51),
+  calorias_en_100g = c(160, 884, 654, 576, 588, 584),
+  grasas_en_100g = c(15, 100, 65, 50, 50, 51),
   alergenos = c("ninguno", "ninguno", "frutos_secos", "frutos_secos", "frutos_secos", "ninguno")
 )
 
 lacteos_df <- data.frame(
   alimento = c("leche lala", "yogurt natural", "queso panela", "requeson", "leche de almendras"),
-  calorias_por_100g = c(44, 63, 274, 120, 17),
-  proteinas_por_100g = c(5, 10, 18, 11, 0.62),
+  calorias_en_100g = c(44, 63, 274, 120, 17),
+  proteinas_en_100g = c(5, 10, 18, 11, 0.62),
   alergenos = c("lacteos", "lacteos", "lacteos", "lacteos", "ninguno")
 )
 
@@ -40,9 +40,9 @@ frutas_df <- data.frame(
   alimento = c("manzana", "platano", "naranja", "fresa", "uva", "melon", 
                "sandia", "piña", "mango", "kiwi", "pera", "durazno",
                "ciruela", "cereza", "arandanos", "frambuesa", "zarzamora"),
-  calorias_por_100g = c(52, 89, 47, 32, 69, 34, 30, 50, 60, 61, 57, 39, 
+  calorias_en_100g = c(52, 89, 47, 32, 69, 34, 30, 50, 60, 61, 57, 39, 
                         46, 50, 57, 52, 43),
-  carbohidratos_por_100g = c(14, 23, 12, 8, 18, 8, 8, 13, 15, 15, 15, 10,
+  carbohidratos_en_100g = c(14, 23, 12, 8, 18, 8, 8, 13, 15, 15, 15, 10,
                              11, 12, 14, 12, 10),
   alergenos = c("ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno",
                 "ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno",
@@ -53,24 +53,25 @@ verduras_df <- data.frame(
   alimento = c("brocoli", "espinaca", "zanahoria", "tomate", "pepino", 
                "lechuga", "coliflor", "pimiento", "calabaza", "berenjena", 
                "apio", "champinones", "alcachofa","esparrago", "col_bruselas",
-               "jicama", "remolacha"),
-  calorias_por_100g = c(34, 23, 41, 18, 15, 15, 25, 26, 26, 25, 
-                        16, 22, 47, 20, 43, 38, 43),
-  carbohidratos_por_100g = c(7, 4, 10, 4, 3, 3, 5, 6, 7, 6, 
-                             3, 3, 11, 4, 9, 8.8, 9.6),
-  proteinas_por_100g = c(2.8, 2.9, 0.9, 0.9, 0.7, 1.4, 2.0, 1.0, 1.0, 1.0,
-                         0.7, 3.1, 3.3, 2.2, 3.4, 0.7, 1.6),
+               "jicama", "remolacha", "ejotes", "chayote"),
+  calorias_en_100g = c(34, 23, 41, 18, 15, 15, 25, 26, 26, 25, 
+                        16, 22, 47, 20, 43, 38, 43, 18, 17),
+  carbohidratos_en_100g = c(7, 4, 10, 4, 3, 3, 5, 6, 7, 6, 
+                             3, 3, 11, 4, 9, 8.8, 9.6, 3.9),
+  proteinas_en_100g = c(2.8, 2.9, 0.9, 0.9, 0.7, 1.4, 2.0, 1.0, 1.0, 1.0,
+                         0.7, 3.1, 3.3, 2.2, 3.4, 0.7, 1.6, 1, 0.82),
   alergenos = c("ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno",
                 "ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno", 
-                "ninguno", "ninguno", "ninguno", "ninguno", "ninguno")
+                "ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno", "ninguno")
 )
 #lo valores nutrimentales (aproximaciones) se obtuvieron de busquedas a través de internet, estos valores pueden cambiar según la pagina web de donde saques los datos
 #Tiene que calcular: calorias y cantidad de proteina 
 
 dieta <- function(){
   #PREGUNTAR DATOS AL USUARIO
-edad<- as.numeric(readline(prompt = "Bienvenido al creador de dietas 
-favor de responder todas las preguntas en minusculas y sin acentos. Qué edad tiene?"))
+nombre<- readline(prompt = "Bienvenido al creador de dietas, ¿Cuál es su nombre?")
+edad<- as.numeric(readline(prompt = "Mucho gusto, favor de responder todas las preguntas en minusculas y sin acentos. 
+                           Qué edad tiene?"))
 sexo<- readline(prompt = "¿Cual es su sexo? (femenino o masculino)")
 peso<- as.numeric(readline(prompt = "Escriba su peso en kilogramos. (Ejemplo: 89)"))
 altura<- as.numeric(readline(prompt = "Escriba su altura en centimetros. (Ejemplo: 156)"))
@@ -117,8 +118,8 @@ if(cambio_peso=="bajar"){calorias_ajustado<-calorias*0.8
 #luego se dividen para sacar la cantidad en gramos
 
 cantidad_carbohidratos<- (calorias_ajustado*0.5)/4
-cantidad_proteínas<- calorias_ajustado*0.2/4
-cantidad_lípidos<-calorias_ajustado*0.3/9
+cantidad_proteinas<- calorias_ajustado*0.2/4
+cantidad_lipidos<-calorias_ajustado*0.3/9
 
 ##Después hay que filtrar los alimentos, en caso de que se tenga una alergia, esto porque si alguien tiene una alergia
 #no elimine el dato de la tabla original y no se vayan borrando cosas conforme los usuarios modifiquen
@@ -131,14 +132,9 @@ lacteosalergias <- lacteos_df
 ###Genere unas condicionales para que filtre los alimentos si es que la respuesta en
 ###alergia1 es que si tiene alguna
 
-if(alergia1 == "ninguno"){
-  proteinasalergias <- subset(proteinasalergias, alergenos == alergia1)
-  carbohidratosalergias<- subset(carbohidratosalergias, alergenos == alergia1)
-  lipidosalergias <- subset(lipidosalergias, alergenos == alergia1)
-  lacteosalergias <- subset(lacteosalergias, alergenos == alergia1)
-} else if(alergia1=="gluten"){
+if(alergia1 == "gluten"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "gluten")
-  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "gluten")
+  carbohidratosalergias<- subset(carbohidratosalergias, alergenos != "gluten")
   lipidosalergias <- subset(lipidosalergias, alergenos != "gluten")
   lacteosalergias <- subset(lacteosalergias, alergenos != "gluten")
 } else if(alergia1 == "lacteos"){
@@ -151,68 +147,125 @@ if(alergia1 == "ninguno"){
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "frutos_secos")
   lacteosalergias <- subset(lacteosalergias, alergenos != "frutos_secos")
+} else if(alergia1 == "ninguno"){
+  
+} else{
+  print("La alergia1 que proporcionó no es valida, favor de escribir correctamente
+        el grupo: lacteos, gluten, pescado, frutos_secos o ninguno")
+  return()
 }
 
-if(alergia2 == "ninguno"){
-  proteinasalergias <- subset(proteinasalergias, alergenos == alergia2)
-  carbohidratosalergias<- subset(carbohidratosalergias, alergenos == alergia2)
-  lipidosalergias <- subset(lipidosalergias, alergenos == alergia2)
-  lacteosalergias <- subset(lacteosalergias, alergenos == alergia2)
-}else if(alergia1=="gluten"){
+if(alergia2 == "gluten"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "gluten")
-  carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "gluten")
+  carbohidratosalergias<- subset(carbohidratosalergias, alergenos != "gluten")
   lipidosalergias <- subset(lipidosalergias, alergenos != "gluten")
   lacteosalergias <- subset(lacteosalergias, alergenos != "gluten")
-} else if(alergia1 == "lacteos"){
+} else if(alergia2 == "lacteos"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "lacteos")
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "lacteos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "lacteos")
   lacteosalergias <- subset(lacteosalergias, alergenos != "lacteos")
-} else if(alergia1 == "frutos_secos"){
+} else if(alergia2 == "frutos_secos"){
   proteinasalergias <- subset(proteinasalergias, alergenos != "frutos_secos")
   carbohidratosalergias <- subset(carbohidratosalergias, alergenos != "frutos_secos")
   lipidosalergias <- subset(lipidosalergias, alergenos != "frutos_secos")
   lacteosalergias <- subset(lacteosalergias, alergenos != "frutos_secos")
+} else if(alergia2 == "ninguno"){
+  
+} else{
+  print("La alergia2 que proporcionó no es valida, favor de escribir correctamente
+        el grupo: lacteos, gluten, pescado, frutos_secos o ninguno")
+  return()
 }
 
-###Elegir al azar 2 solo grupo de alimentos... A excepcion de la fruta y los lacteos, ahi se escoge 1
-proteina<- proteinasalergias[sample(nrow(proteinasalergias), 2), ]
-carbohidrato<- carbohidratosalergias[sample(nrow(carbohidratosalergias), 2), ]
-lipido<- lipidosalergias[sample(nrow(lipidosalergias), 2), ]
-lacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
-verdura<- verduras_df[sample(nrow(verduras_df), 2), ]
-fruta<- frutas_df[sample(nrow(frutas_df), 1), ]
-proteina
-###Acomodar las porciones (gr) segun el requerimiento
-porcion_proteina1<- round(((cantidad_proteínas/2)/ proteina$proteinas_en_100g[1]) * 100)
-porcion_proteina2<-round(((cantidad_proteínas/2)/proteina$proteinas_en_100g[2])*100)
-porcion_carbohidrato1<- round(((cantidad_carbohidratos/2)/ carbohidrato$carbohidratos_en_100g[1]) * 100)
-porcion_carbohidrato2<- round(((cantidad_carbohidratos/2)/ carbohidrato$carbohidratos_en_100g[2]) * 100)
-porcion_lipido1<- round(((cantidad_lípidos/2)/lipido$grasas_por_100g[1]) * 100)
-porcion_lipido2<- round(((cantidad_lípidos/2)/lipido$grasas_por_100g[2]) * 100)
-porcion_carbohidrato1
-### Para sacar las porciones solo hice una regla de 3, si 100gr de este alimento
-#tienen tantos gr de proteina, cuantos gramos necesito para cumplir tal requerimiento de proteinas en mi dieta. 
+###como queremos dividir este menu en 3 comidas diferentes, calcularemos el aporte que necesita cada alimento. 
+##PROTEINAS 100%
+proteinas_desayuno<- cantidad_proteinas * 0.40
+proteinas_comida<- cantidad_proteinas * 0.40
+proteinas_cena<- cantidad_proteinas * 0.20
 
-###Imprimir la dieta. Estuve intentando como mandar una "impresion" como tipo grafica
-#y solo hice una grafica sin datos... No se si haya otra manera, hasta ahorita no he 
-#encontrado nada. 
+##CARBOHIDRATOS 100%
+carbo_desayuno<- cantidad_carbohidratos *0.20
+carbo_comida<- cantidad_carbohidratos *0.40 
+carbo_cena<- cantidad_carbohidratos *0.40 
 
-plot(0:200, type = "n", xlab = "", ylab = "", axes = F)
-    
-text(50,200, paste("-----CANTIDADES REQUERIDAS-----"))
-text(50,180, paste("Calorias requeridas:", round(calorias_ajustado),"kcal"))
-text(50,80, paste("Proteina requerida:", cantidad_proteínas, "g"))
-text(50,70, paste("Carbohidratos requeridos:", cantidad_carbohidratos, "g"))
-text(50,60, paste("Lipidos requeridos:", cantidad_lípidos, "g"))
-text(50,50, paste("Porcion de lacteos: 100g/ml"))
-text(50,40, paste("Porcion de frutas y verduras: 100g"))
-text(50,20, paste("-----MENÚ RECOMENDADO-----"))
-text(50,10, paste(porcion_proteina1, "g de", proteina$alimento[1], "acompañado de", porcion_proteina2, "g de", proteina$alimento[2] ))
-text(50,0, paste(porcion_carbohidrato1, "g de", carbohidrato$alimento[1], "y", porcion_carbohidrato2, "g de", carbohidrato$alimento[2]))
-text(50,4, paste(porcion_lipido[1], "g de", lipido$alimento[1], "ademas de", porcion_lipido[2], "g de", lipido$alimento[2]))
-text(50,2, paste("Agregue tambien 100g/ml de", lacteo$alimento, ",", "100 gr de", fruta$alimento, "y 100g de c/u, de"))
-text(50,0, paste(verdura$alimento, "Recuerde que esta dieta debe complementarse con al menos un poco de actividad fisica"))
+##LIPIDOS 100%
+lipidos_comida<-cantidad_lipidos *0.50
+lipidos_cena<- cantidad_lipidos *0.50 
+
+
+while(FALSE){
+###Elegir al azar 2 solo grupo de alimentos... Dividiendolo por tiempos (desayuno, comida y cena)
+##DESAYUNO
+desayunolacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
+desayunofruta<- frutas_df[sample(nrow(frutas_df), 1), ]
+
+porciondesayunoproteina<- round(proteinas_desayuno/desayunolacteo$proteinas_en_100g * 100)
+porciondesayunocarbohidrato<- round(carbo_desayuno/desayunofruta$carbohidratos_en_100g * 100)
+
+##COMIDA
+comidaproteina<- proteinasalergias[sample(nrow(proteinasalergias), 1), ]
+comidacarbohidrato<- carbohidratosalergias[sample(nrow(carbohidratosalergias), 1), ]
+comidalipido<- lipidosalergias[sample(nrow(lipidosalergias), 1), ]
+comidaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
+
+porcioncomidaproteina<- round(proteinas_comida/comidaproteina$proteinas_en_100g * 100)
+porcioncomidacarbohidrato<- round(carbo_comida/comidacarbohidrato$carbohidratos_en_100g * 100)
+porcioncomidalipido<- round(lipidos_comida/comidalipido$grasas_en_100g * 100)
+porcioncomidaverdura<- rep(100, nrow(comidaverdura))
+
+##CENA
+cenaproteina<- proteinasalergias[sample(nrow(proteinasalergias), 1), ]
+cenacarbohidrato<- carbohidratosalergias[sample(nrow(carbohidratosalergias), 1), ]
+cenalipido<- lipidosalergias[sample(nrow(lipidosalergias), 1), ]
+cenaverdura<- verduras_df[sample(nrow(verduras_df), 2), ]
+
+porcioncenaproteina<- round(proteinas_cena/cenaproteina$proteinas_en_100g * 100)
+porcioncenacarbohidrato<-round(carbo_cena/cenacarbohidrato$carbohidratos_en_100g * 100)
+porcioncenalipido<- round(lipidos_cena/cenalipido$grasas_en_100g * 100)
+porcioncenaverdura<- rep(100, nrow(cenaverdura))
+  
+#Dar un "borrador" de la dieta final
+cat("Desayuno:")
+cat(paste(porciondesayunoproteina, "g de",desayunolacteo$alimento, "acompañado de", porciondesayunocarbohidrato,
+            "g de", desayunofruta$alimento))
+
+
+
+cat("Comida:")
+cat(paste(porcioncomidaproteina, "g de", comidaproteina$alimento, "acompañado de", porcioncomidacarbohidrato,
+            "g de", comidacarbohidrato$alimento, porcioncomidalipido, "g de", comidalipido$alimento, porcioncomidaverdura[1],
+            "g de", comidaverdura$alimento[1], "y", porcioncomidaverdura[2], "g de", comidaverdura$alimento[2]))
+
+
+
+cat("Cena:")
+cat(paste(porcioncenaproteina, "g de", cenaproteina$alimento, "acompañado de", porcioncenacarbohidrato,
+            "g de", cenacarbohidrato$alimento, porcioncenalipido, "g de", cenalipido$alimento, porcioncenaverdura[1],
+            "g de", cenaverdura$alimento[1], "y", porcioncenaverdura[2], "g de", cenaverdura$alimento[2]))
+
+
+###Mandar un pdf al usuario con su dieta si le gustó.
+pregunta<- readline(prompt = "Estas conforme con este menu? (si/no)")
+
+
+
+}
+
+
 }
 
 dieta ()
+
+
+
+
+
+
+
+
+
+
+
+
+
