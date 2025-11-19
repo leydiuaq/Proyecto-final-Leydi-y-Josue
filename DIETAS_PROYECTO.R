@@ -194,7 +194,7 @@ lipidos_comida<-cantidad_lipidos *0.50
 lipidos_cena<- cantidad_lipidos *0.50 
 
 
-while(FALSE){
+while(TRUE){
 ###Elegir al azar 2 solo grupo de alimentos... Dividiendolo por tiempos (desayuno, comida y cena)
 ##DESAYUNO
 desayunolacteo<- lacteosalergias[sample(nrow(lacteosalergias), 1), ]
